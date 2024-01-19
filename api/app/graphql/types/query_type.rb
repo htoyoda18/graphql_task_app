@@ -27,5 +27,10 @@ module Types
     def test_field
       "Hello World!"
     end
+
+    field :tasks, [TaskType], null: false
+    def tasks
+      Task.all
+    end
   end
 end
