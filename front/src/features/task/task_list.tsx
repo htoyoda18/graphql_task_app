@@ -3,8 +3,13 @@ import { ColoredAvatar } from "../../component/badge";
 
 // ダミーのタスクデータ
 const tasks = [
-  { name: "タスク1", status: "完了" },
-  { name: "タスク2タスク2", status: "未完了" },
+  { name: "タスク1", status: "未完了" },
+  { name: "タスク2", status: "未完了" },
+  { name: "タスク3", status: "未完了" },
+  { name: "タスク4", status: "完了" },
+  { name: "タスク5", status: "未完了" },
+  { name: "タスク6", status: "完了" },
+  { name: "タスク7", status: "完了" },
 ];
 
 export const TaskList = () => {
@@ -17,7 +22,7 @@ export const TaskList = () => {
         {tasks.map((task, index) => (
           <li
             key={index}
-            className="flex items-center space-x-4 p-3 mb-2 bg-gray-100 border border-gray-200 rounded-lg"
+            className="flex items-center p-3 mb-3 bg-gray-100 border border-gray-200 rounded-lg"
           >
             <span className="text-sm font-medium flex-1">{task.name}</span>
             <ColoredAvatar
