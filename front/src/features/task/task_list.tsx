@@ -1,5 +1,8 @@
+'use client'
+
 import React from "react";
 import { ColoredAvatar } from "../../component/badge";
+import { useGetTasksQuery } from "../../generated/graphql";
 
 // ダミーのタスクデータ
 const tasks = [
@@ -13,6 +16,7 @@ const tasks = [
 ];
 
 export const TaskList = () => {
+  useGetTasksQuery()
   return (
     <div className="mt-10 flex flex-col items-center w-full max-w-sm mx-auto">
       {" "}
