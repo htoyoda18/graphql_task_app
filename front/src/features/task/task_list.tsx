@@ -36,8 +36,8 @@ export const TaskList = () => {
           >
             <span className="text-sm font-medium flex-1">{task.name}</span>
             <ColoredAvatar
-              color={task.status === "完了" ? "green" : "orange"}
-              text={task.status}
+              color={task.status === "complete" ? "green" : "orange"}
+              text={task.status === "complete" ? "完了" : "未完了"}
             />
           </li>
         ))}
