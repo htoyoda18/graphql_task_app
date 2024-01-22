@@ -38,10 +38,15 @@ export const TaskCreate = () => {
           <input {...register("taskName", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2">ステータス: 未完了</label>
+          <label className="block text-gray-700 text-sm font-bold mb-2">ステータス: <span className="text-deepOrange">未完了</span></label>
           <input type="hidden" {...register("status")} value="未完了" />
         </div>
-        <CreateButton buttonText="追加" />
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        >
+          追加
+        </button>
       </form>
     </div>
   );
