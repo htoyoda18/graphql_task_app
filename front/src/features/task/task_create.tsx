@@ -4,6 +4,7 @@ import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CreateButton } from "../../component/button";
 import { useCreateTaskMutation, CreateTaskMutationVariables } from '../../generated/graphql';
+import { useRouter } from 'next/navigation';
 
 // フォームのデータ型を定義
 type FormData = {
@@ -18,12 +19,15 @@ export const TaskCreate = () => {
   // useCreateTaskMutationフックを使用
   const [createTask, { data, loading, error }] = useCreateTaskMutation();
 
+  const router = useRouter();
+
   // onSubmitハンドラに型を付ける
   const onSubmit: SubmitHandler<FormData> = (formData) => {
     createTask({ variables: { input: { params: {name: formData.taskName} } } })
       .then(response => {
         console.log('Task created:', response.data);
         reset(); // フォームをリセット
+        router.push('/'); // ルーターが準備完了していればリダイレクト
       })
       .catch(error => {
         console.error('Error creating task:', error);
