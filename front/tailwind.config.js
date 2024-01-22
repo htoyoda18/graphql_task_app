@@ -12,6 +12,9 @@ module.exports = {
       spacing: {
         "1/5": "20%", // 画面の高さの20%に相当するスペース
       },
+      colors: {
+        deepOrange: '#FF5722', // これがMUIのdeepOrange[500]に相当
+      },
     },
   },
   plugins: [],
