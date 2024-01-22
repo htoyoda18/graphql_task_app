@@ -8,5 +8,6 @@ module Types
     end
 
     field :create_task, mutation: Mutations::CreateTask
+    field :update_task, mutation: Mutations::UpdateTask
   end
 end
