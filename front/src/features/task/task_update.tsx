@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect } from "react";
-import { useGetTaskLazyQuery } from "../../generated/graphql";
+import { useGetTaskLazyQuery, useUpdateTaskMutation } from "../../generated/graphql";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { StatusSelect } from "../../component/select";
 import { SelectChangeEvent } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 
 type Props = {
@@ -19,7 +20,9 @@ type FormData = {
 
 export const TaskUpdate = ({ taskID } : Props) => {
     const [getTask, { data, loading, error }] = useGetTaskLazyQuery();
+    const [updateTask] = useUpdateTaskMutation();
     const { register, handleSubmit, reset, setValue, watch } = useForm<FormData>();
+    const router = useRouter();
 
     useEffect(() => {
         getTask({ variables: { id: taskID } });
@@ -38,6 +41,15 @@ export const TaskUpdate = ({ taskID } : Props) => {
     const statusValue = watch('status');
 
     const onSubmit: SubmitHandler<FormData> = (formData) => {
+        updateTask({ variables: { input: { id: taskID, params: { name: formData.taskName, status: formData.status } } } })
+        .then(response => {
+            console.log('Task updated:', response.data);
+            reset(); // フォームをリセット
+            router.push('/'); // ルーターが準備完了していればリダイレクト
+        })
+          .catch(error => {
+            console.error('Error update task:', error);
+        });
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
