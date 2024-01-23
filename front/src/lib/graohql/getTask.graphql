@@ -1,0 +1,6 @@
+query GetTask($id: String!) {
+  tasks {
+    name
+    status
+  }
+}

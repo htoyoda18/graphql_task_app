@@ -32,5 +32,12 @@ module Types
     def tasks
       Task.all
     end
+
+    field :get_task, TaskType, null: false do
+      argument :id, ID, required: true
+    end
+    def get_task(id:)
+      Task.find(id)
+    end
   end
 end
