@@ -1,6 +1,6 @@
-query GetTask($id: String!) {
-  tasks {
-    name
+query GetTask($id: ID!) {
+  getTask(id: $id) {
     status
+    name
   }
 }

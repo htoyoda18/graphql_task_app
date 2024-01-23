@@ -102,11 +102,11 @@ export type CreateTaskMutationVariables = Exact<{
 export type CreateTaskMutation = { __typename?: 'Mutation', createTask?: { __typename?: 'CreateTaskPayload', task: { __typename?: 'Task', name: string, status: string } } | null };
 
 export type GetTaskQueryVariables = Exact<{
-  id: Scalars['String']['input'];
+  id: Scalars['ID']['input'];
 }>;
 
 
-export type GetTaskQuery = { __typename?: 'Query', tasks: Array<{ __typename?: 'Task', name: string, status: string }> };
+export type GetTaskQuery = { __typename?: 'Query', getTask: { __typename?: 'Task', status: string, name: string } };
 
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -158,10 +158,10 @@ export type CreateTaskMutationHookResult = ReturnType<typeof useCreateTaskMutati
 export type CreateTaskMutationResult = Apollo.MutationResult<CreateTaskMutation>;
 export type CreateTaskMutationOptions = Apollo.BaseMutationOptions<CreateTaskMutation, CreateTaskMutationVariables>;
 export const GetTaskDocument = gql`
-    query GetTask($id: String!) {
-  tasks {
-    name
+    query GetTask($id: ID!) {
+  getTask(id: $id) {
     status
+    name
   }
 }
     `;
