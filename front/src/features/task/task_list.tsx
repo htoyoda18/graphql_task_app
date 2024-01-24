@@ -1,11 +1,21 @@
 'use client'
 
-import React from "react";
+import React, { useEffect } from "react";
 import { ColoredAvatar } from "../../component/badge";
 import { useGetTasksQuery, TaskStatusEnum } from "../../generated/graphql";
+import { useRouter } from 'next/navigation';
 
 export const TaskList = () => {
-  const { data, loading, error } = useGetTasksQuery();
+  const { data, loading, error, refetch } = useGetTasksQuery();
+  const router = useRouter();
+
+  useEffect(() => {
+    refetch();
+  });
+  
+  const handleClick = (id: string) => {
+    router.push(`/${id}`);
+  }
 
   // ローディング状態のハンドリング
   if (loading) {
@@ -33,6 +43,7 @@ export const TaskList = () => {
           <li
             key={index}
             className="flex items-center p-4 mb-4 bg-gray-50 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 ease-in-out"
+            onClick={() => handleClick(task.id)}
           >
             <span className="text-sm font-medium flex-1">{task.name}</span>
             <ColoredAvatar

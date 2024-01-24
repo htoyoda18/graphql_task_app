@@ -1,5 +1,6 @@
 query GetTasks {
   tasks {
+    id
     name
     status
   }

@@ -90,6 +90,7 @@ export type QueryGetTaskArgs = {
 
 export type Task = {
   __typename?: 'Task';
+  id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   status: TaskStatusEnum;
 };
@@ -141,12 +142,12 @@ export type GetTaskQueryVariables = Exact<{
 }>;
 
 
-export type GetTaskQuery = { __typename?: 'Query', getTask: { __typename?: 'Task', status: TaskStatusEnum, name: string } };
+export type GetTaskQuery = { __typename?: 'Query', getTask: { __typename?: 'Task', id: string, status: TaskStatusEnum, name: string } };
 
 export type GetTasksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetTasksQuery = { __typename?: 'Query', tasks: Array<{ __typename?: 'Task', name: string, status: TaskStatusEnum }> };
+export type GetTasksQuery = { __typename?: 'Query', tasks: Array<{ __typename?: 'Task', id: string, name: string, status: TaskStatusEnum }> };
 
 export type UpdateTaskMutationVariables = Exact<{
   input: UpdateTaskInput;
@@ -228,6 +229,7 @@ export type DeleteTaskMutationOptions = Apollo.BaseMutationOptions<DeleteTaskMut
 export const GetTaskDocument = gql`
     query GetTask($id: ID!) {
   getTask(id: $id) {
+    id
     status
     name
   }
@@ -269,6 +271,7 @@ export type GetTaskQueryResult = Apollo.QueryResult<GetTaskQuery, GetTaskQueryVa
 export const GetTasksDocument = gql`
     query GetTasks {
   tasks {
+    id
     name
     status
   }
