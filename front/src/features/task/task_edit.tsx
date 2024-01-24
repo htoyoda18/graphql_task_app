@@ -1,12 +1,13 @@
 'use client'
 
 import { useEffect } from "react";
-import { useGetTaskLazyQuery, useUpdateTaskMutation, TaskStatusEnum, Task } from "../../generated/graphql";
+import { useGetTaskLazyQuery, useUpdateTaskMutation, TaskStatusEnum, Task, useDeleteTaskMutation } from "../../generated/graphql";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { StatusSelect } from "../../component/select";
 import { SelectChangeEvent } from '@mui/material';
 import { useRouter } from 'next/navigation';
-
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 type Props = {
     taskID: string
@@ -15,6 +16,7 @@ type Props = {
 export const TaskUpdate = ({ taskID } : Props) => {
     const [getTask, { data, loading, error }] = useGetTaskLazyQuery();
     const [updateTask] = useUpdateTaskMutation();
+    const [deleteTask] = useDeleteTaskMutation();
     const { register, handleSubmit, reset, setValue, watch } = useForm<Task>();
     const router = useRouter();
 
@@ -38,16 +40,26 @@ export const TaskUpdate = ({ taskID } : Props) => {
         updateTask({ variables: { input: { id: taskID, params: { name: formData.name, status: formData.status } } } })
         .then(response => {
             console.log('Task updated:', response.data);
-            reset(); // フォームをリセット
-            router.push('/'); // ルーターが準備完了していればリダイレクト
+            router.push('/');
         })
-          .catch(error => {
+        .catch(error => {
             console.error('Error update task:', error);
         });
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
         setValue('status', event.target.value as TaskStatusEnum);
+    };
+
+    const handleDelete = () => {
+        deleteTask({ variables:  { input: { id: taskID } }})
+        .then(response => {
+            console.log('Task updated:', response.data);
+            router.push('/');
+        })
+        .catch(error => {
+            console.error('Error update task:', error);
+        });
     };
 
     if (loading) return <p>Loading...</p>;
@@ -72,11 +84,23 @@ export const TaskUpdate = ({ taskID } : Props) => {
                         }} 
                     />
                 </div>
-                <button
-                    type="submit"
-                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    更新
-                </button>
+                <div className="mb-4">
+                    <button
+                        type="submit"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center">
+                        <AddCircleIcon style={{ fontSize: 20, marginRight: 8 }} />
+                        更新
+                    </button>
+                </div>
+                <div className="mb-4">
+                    <button
+                        onClick={handleDelete}
+                        type="button"
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center">
+                        <DeleteIcon style={{ fontSize: 20, marginRight: 8 }} />
+                        削除
+                    </button>
+                </div>
             </ form>
         </div>
     )
