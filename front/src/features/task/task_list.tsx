@@ -38,7 +38,7 @@ export const TaskList = () => {
   return (
     <div className="mt-10 flex flex-col items-center w-full max-w-lg mx-auto px-4 py-2 bg-white text-gray-700">
       <h2 className="mb-5 text-xl font-bold text-gray-800">タスク情報</h2>
-      <ul className="w-full">
+      <ul className="w-full" style={{ maxHeight: '500px', overflowY: 'auto' }}>
         {data?.tasks.map((task, index) => (
           <li
             key={index}
