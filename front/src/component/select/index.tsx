@@ -1,12 +1,14 @@
 import React from 'react';
 import { Select, MenuItem, FormControl, InputLabel, SelectChangeEvent } from '@mui/material';
+import { TaskStatusEnum } from "../../generated/graphql";
+
 
 type StatusSelectProps = {
-    initialValue: string;
+    initialStatus: TaskStatusEnum;
     onChange: (event: SelectChangeEvent) => void;
 };
 
-export const StatusSelect: React.FC<StatusSelectProps> = ({ initialValue, onChange }) => {
+export const StatusSelect: React.FC<StatusSelectProps> = ({ initialStatus: initialValue, onChange }) => {
 
   return (
     <FormControl fullWidth>

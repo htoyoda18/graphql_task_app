@@ -72,7 +72,7 @@ export const TaskUpdate = ({ taskID } : Props) => {
                 </div>
                 <div className="mb-6">
                     <StatusSelect 
-                        initialValue={statusValue || 'incomplete'}
+                        initialStatus={statusValue || 'incomplete'}
                         onChange={(event) => {
                             handleStatusChange(event);
                         }} 
