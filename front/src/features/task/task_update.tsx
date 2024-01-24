@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from "react";
-import { useGetTaskLazyQuery, useUpdateTaskMutation } from "../../generated/graphql";
+import { useGetTaskLazyQuery, useUpdateTaskMutation, TaskStatusEnum } from "../../generated/graphql";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { StatusSelect } from "../../component/select";
 import { SelectChangeEvent } from '@mui/material';
@@ -15,7 +15,7 @@ type Props = {
 // TODO FormDataを共通化したい
 type FormData = {
     taskName: string;
-    status: string;
+    status: TaskStatusEnum;
 };
 
 export const TaskUpdate = ({ taskID } : Props) => {
@@ -53,7 +53,7 @@ export const TaskUpdate = ({ taskID } : Props) => {
     };
 
     const handleStatusChange = (event: SelectChangeEvent) => {
-        setValue('status', event.target.value as string);
+        setValue('status', event.target.value as TaskStatusEnum);
     };
 
     if (loading) return <p>Loading...</p>;
