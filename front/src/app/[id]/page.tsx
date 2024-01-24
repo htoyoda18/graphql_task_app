@@ -1,7 +1,7 @@
 "use client"
 
 import { Footer } from "../../features/footer";
-import { TaskUpdate } from "../../features/task/task_update";
+import { TaskUpdate } from "../../features/task/task_edit";
 
 type Props = {
     params: {
