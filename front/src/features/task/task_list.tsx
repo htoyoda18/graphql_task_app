@@ -2,7 +2,7 @@
 
 import React from "react";
 import { ColoredAvatar } from "../../component/badge";
-import { useGetTasksQuery } from "../../generated/graphql";
+import { useGetTasksQuery, TaskStatusEnum } from "../../generated/graphql";
 
 export const TaskList = () => {
   const { data, loading, error } = useGetTasksQuery();
@@ -36,8 +36,8 @@ export const TaskList = () => {
           >
             <span className="text-sm font-medium flex-1">{task.name}</span>
             <ColoredAvatar
-              color={task.status === "complete" ? "green" : "orange"}
-              text={task.status === "complete" ? "完了" : "未完了"}
+              color={task.status === TaskStatusEnum.Complete ? "green" : "orange"}
+              text={task.status === TaskStatusEnum.Complete ? "完了" : "未完了"}
             />
           </li>
         ))}

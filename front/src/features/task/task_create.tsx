@@ -3,18 +3,12 @@
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { CreateButton } from "../../component/button";
-import { useCreateTaskMutation, CreateTaskMutationVariables } from '../../generated/graphql';
+import { useCreateTaskMutation, Task } from '../../generated/graphql';
 import { useRouter } from 'next/navigation';
-
-// フォームのデータ型を定義
-type FormData = {
-  taskName: string;
-  status: string;
-};
 
 export const TaskCreate = () => {
   // useFormに型を指定
-  const { register, handleSubmit, reset } = useForm<FormData>();
+  const { register, handleSubmit, reset } = useForm<Task>();
 
   // useCreateTaskMutationフックを使用
   const [createTask, { data, loading, error }] = useCreateTaskMutation();
@@ -22,8 +16,8 @@ export const TaskCreate = () => {
   const router = useRouter();
 
   // onSubmitハンドラに型を付ける
-  const onSubmit: SubmitHandler<FormData> = (formData) => {
-    createTask({ variables: { input: { params: {name: formData.taskName} } } })
+  const onSubmit: SubmitHandler<Task> = (Task) => {
+    createTask({ variables: { input: { params: {name: Task.name} } } })
       .then(response => {
         console.log('Task created:', response.data);
         reset(); // フォームをリセット
@@ -39,7 +33,7 @@ export const TaskCreate = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xs">
         <div className="mb-4">
           <label htmlFor="taskName" className="block text-gray-700 text-sm font-bold mb-2">タスク名:</label>
-          <input {...register("taskName", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
+          <input {...register("name", { required: true })} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
         </div>
         <div className="mb-6">
           <label className="block text-gray-700 text-sm font-bold mb-2">ステータス: <span className="text-deepOrange">未完了</span></label>
