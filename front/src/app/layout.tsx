@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import "tailwindcss/tailwind.css";
 import { ApolloProvider } from "../providers/apollo"
-
-const inter = Inter({ subsets: ["latin"] });
+import { Footer } from "../features/footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,6 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ApolloProvider>{children}</ApolloProvider>
+        <Footer />
       </body>
     </html>
   );
